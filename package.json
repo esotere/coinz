@@ -1,7 +1,9 @@
 {
   "name": "coinz",
   "version": "1.0.0",
-  "main": "server.js",
+  "engines": {
+    "node": "10.x"
+  },
   "scripts": {
     "start": "node server.js",
     "coinz": "node server.js",
@@ -14,13 +16,13 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "client-oauth2": "^4.3.3",
+    "core-util-is": "^1.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.13.3",
     "mongoose-float": "^1.0.4",
     "morgan": "^1.10.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/esotere/coinz.git"
