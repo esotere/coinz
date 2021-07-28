@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coinz Signin</title>
+    <link type="text/css" rel="stylesheet" href="./styles/styles.css">
+    <link rel="shortcut icon" href="#" />
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron banner">
+            <h1>CHANGE SAVER</h1>
+            <!-- <h3 class="bal">Balance: ₦<span id="balance"></span></h3> -->
+            <input id="date-1" class="calendar">
+        </div>
+
+        <div class="login-form">
+            <form action="/examples/actions/confirmation.php" method="post">
+                <h2 class="text-center">Log in</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Username" required="required">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Password" required="required">
+                </div>
+                <div class="form-group">
+                    <button Id="signIn" type="submit" class="btn btn-success btn-block"
+                        onclick="coinz('google').login()">Log in</button>
+                </div>
+                <div class="clearfix">
+                    <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+                    <a href="#" class="pull-right">Forgot Password?</a>
+                </div>
+            </form>
+            <p class="text-center"><a href="#">Create an Account</a></p>
+        </div>
+        <!-- <div class="glyph">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"> Add Recipient</span>
+           </div> 
+         <div class="submit">
+            <button class="button btn btn-sm btn-success">SEND</button>
+            <button class="button btn btn-sm btn-primary">CANCEL</button>
+        </div> -->
+
+    </div>
+    
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Javascript -->
+    <script src="./javascript/app.js"></script>
+
+    <!-- oAuth-->
+    <!-- <script src="static/coinz.js"></script>
+    <script>
+    coinz.init({
+        google: "494945618221-reao3faqcjm2kdgvmoiqm6m0v76k2mjm.apps.googleusercontent.com"     
+    });
+    </script> -->
+    
+
+</body>
+
+</html>

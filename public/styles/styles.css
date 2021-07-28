@@ -1,0 +1,75 @@
+.banner {
+    background-color: darkgreen !important;
+    color: white !important;
+    text-align: center;
+}
+.bal {
+    text-align: center;
+}
+.calendar {
+    color: white;
+    background-color: darkgreen;
+    width: 12%;
+    border: none;
+    text-align: center;
+}
+/* .outer-content {
+    display: flex;
+} */
+.stuff {
+    display: inline-flex;
+}
+.content {
+    margin: 10px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.line {
+    display: flex;
+    justify-content: space-around;
+}
+.row.line {
+    display: flex;
+    justify-content: space-around;
+    margin: 0px, 12% !important;
+}
+.content-group {
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
+}
+.space {
+    
+}
+.submit {
+    margin: 10px;
+    padding: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    
+}
+.glyph {
+    display: block;
+    text-align: right;
+    /* justify-content: flex-end; */
+}
+.button {
+    margin: 10px;
+}
+.lables {
+    display: none;
+}
+.info {
+    display:flex;
+    margin: auto;
+    line-height: 16px;
+    /* font-weight: 900; */
+    font-size: medium;
+    text-align: center;
+}
+input.inputBox {
+    text-align: right;
+}

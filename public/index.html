@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coinz</title>
+    <link type="text/css" rel="stylesheet" href="./styles/styles.css">
+    <link rel="shortcut icon" href="#" />
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron banner">
+            <h1>CHANGE SAVER</h1>
+            <h3 class="bal">Balance: ₦<span id="balance"></span></h3>
+            <input id="date-1" class="calendar">
+        </div>
+        <div class="container outer-content">
+            <div id="content" class="content">
+                <div id="initial-row" class="row">
+                    <div class="col-md-3 content-group">
+                        <label for="Transfer Date">*Transfer Date</label><br>
+                        <input id="date" type="date" name="transfer date" value="yyyy-MM-dd" min="2019-03-26"
+                            placeholder="">
+                    </div>
+                    <div class="col-md-3 content-group">
+                        <label for="Sender Phone Number">*Sender Phone Number</label><br>
+                        <input id="phone-1" type="text" class="inputBox" placeholder="" name="Sender Account Number">
+                    </div>
+                    <div class="col-md-3 content-group">
+                        <label for="Recipient Phone Number">*Send to Phone Number</label><br>
+                        <input id="phone-2" type="text" class="inputBox" placeholder="" name="Recipient Account Number">
+                    </div>
+                    <div class="col-md-3 content-group">
+                        <label for="Transfer Amount">*Transfer Amount</label><br>
+                        <input type="number" step="any" class="inputBox" id="amt" placeholder="₦"
+                            name="Transfer Amount">
+                    </div>
+                </div>
+            </div>
+            <div class="glyph">
+                <a href="" class="glyphicon glyphicon-plus" aria-hidden="true"> Add Recipient</a>
+            </div>
+            <div class=" submit submit-btn-wrapper">
+                <button id="transfer" class="button btn btn-sm btn-success">TRANSFER</button>
+                <button id="cancel" class="button btn btn-sm btn-danger">CANCEL</button>
+            </div>
+
+
+        </div>
+        <div class="container ">
+            <div class="row content info">
+                <div id="transactionDate" class="col-md-3"><b>Transaction Date</b></div>
+                <div id="transactionInfo" class="col-md-6"><b>Transaction Info</b></div>
+                <div id="transactionAmt" class="col-md-3"><b>Transaction Amount</b></div>
+
+            </div>
+        </div>
+        <!-- <div class="glyph">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"> Add Recipient</span>
+           </div> 
+         <div class="submit">
+            <button class="button btn btn-sm btn-success">SEND</button>
+            <button class="button btn btn-sm btn-primary">CANCEL</button>
+        </div> -->
+
+    </div>
+
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Javascript -->
+    <script src="./javascript/app.js"></script>
+
+</body>
+
+</html>
