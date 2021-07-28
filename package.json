@@ -1,6 +1,7 @@
 {
   "name": "coinz",
   "version": "1.0.0",
+  "main": "server.js",
   "engines": {
     "node": "10.x"
   },
