@@ -21,5 +21,13 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/esotere/coinz.git"
+  },
+  "bugs": {
+    "url": "https://github.com/esotere/coinz/issues"
+  },
+  "homepage": "https://github.com/esotere/coinz#readme",
   "description": ""
 }
