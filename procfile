@@ -1,1 +1,1 @@
-web: node coinz/server.js
+worker: node server.js
