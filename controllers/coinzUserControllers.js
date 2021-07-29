@@ -21,6 +21,10 @@ module.exports = app => {
         res.sendFile(path.resolve('../coinz/public/signIn.html')) //, { root: __dirname }));
     });
 
+    // app.get('/', (req, res) => {
+    //     res.sendFile('../signIn.html', { root: __dirname });
+    // });
+
     // app.get('/index', (req, res) => {
     //     res.sendFile('./index.html', { root: __dirname });
     // });
