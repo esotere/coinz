@@ -18,7 +18,7 @@ module.exports = app => {
     // });
         //Added line 20 - 22 for app to land on signin/sign up page
     app.get('/', (req, res) => {
-        res.sendFile(path.join('../coinz/public/signIn.html')) //, { root: __dirname }));
+        res.sendFile(path.resolve('../coinz/public/signIn.html')) //, { root: __dirname }));
     });
 
     // app.get('/index', (req, res) => {
