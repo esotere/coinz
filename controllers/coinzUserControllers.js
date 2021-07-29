@@ -1,7 +1,7 @@
 let User = require("../model/users.jsx");
 //  let UserInfo = require("../model/userInfo.jsx");
 let path= require('path');
-let home = "../public/index.html";
+let home = "../coinz/public/signIn.html";
 
 
 module.exports = app => {
@@ -18,7 +18,7 @@ module.exports = app => {
     // });
         //Added line 20 - 22 for app to land on signin/sign up page
     app.get('/', (req, res) => {
-        res.sendFile(path.resolve('../coinz/public/signIn.html')) //, { root: __dirname }));
+        res.sendFile(path.join('../coinz/public/signIn.html')) //, { root: __dirname }));
     });
 
     // app.get('/index', (req, res) => {
