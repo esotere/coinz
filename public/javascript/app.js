@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 $(function() {
   // ****************************************
   // Google oAuth
@@ -26,6 +28,73 @@ $(function() {
   console.log(today);
   $("#date-1").attr("value", today);
   $("#date").attr("min", today);
+
+  // ******************************************
+  // Signup
+//******************************************************* */
+
+$().on("click", e => {
+  e.preventDefault()
+  console.log("clicked");
+  let queryUrl = "/api/userInfo"
+  let data = {
+            title: req.body.title,
+            name: req.body.name, 
+            address: req.body.address, 
+            phoneNumber: req.body.phoneNumber, 
+            email: req.body.email,
+            bank_name: req.body.bank_name,
+            bank_account_number: req.body.bank_account_number, 
+            bvn: req.body.bvn,
+            system_account_number: req.body.system_account_number, 
+            accountBalance: req.body.accountBalance,
+            creation_date: req.body.creation_date
+          };
+  
+ // Call to store user info
+    $.ajax({
+        url: queryUrl,
+        method: "POST",
+        data: data
+    }).then(response => {
+        console.log(response);
+    });
+        
+ });
+
+// ******************************************
+  // Signin
+//******************************************************* */
+
+  $("#signIn").on("click", e => {
+    e.preventDefault()
+    console.log("clicked")
+    let queryUrl2 = "/api/users/:phoneNumber"
+    let username 
+    let password
+    let phoneNumber
+    // let unameCheck
+    // let check
+
+    $.ajax({
+      url: queryUrl2,
+      method: "GET",
+      data: userInfo
+  }).then(response => {
+      console.log(response);
+  });
+    if (username === response.unameCheck || 
+        phoneNumber === response.phoneNumber && 
+        password === response.check) {
+            console.log(`Welcome ${response.unameCheck}!`);
+    } else {
+        alert(`Invalid Username and/or Password. Please confirm and try again.`);
+    };
+  });
+
+
+
+
 
   // ******************************************
   // Show account balance on sender phone number field change

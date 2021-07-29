@@ -25,10 +25,11 @@ app.use(bodyParser.json({type: "application/*+json"}));
 require("./controllers/coinzUserControllers.js")(app);
 // require("./controllers/coinzUserLoginControllers.jsx")(userApp);
 
-// userApp.use(express.static(__dirname + "/public/"));
-// userApp.use(initialRoutes);
-app.use(express.static(__dirname + "/public/"));
+// app.use(express.static(__dirname + "./public/signIn.html")); // used to serve up sign in page
+// userApp.use(initialRoutes);                              // original below marked for use
+app.use(express.static(__dirname + "/public/"));         // *for use*
 app.use(routes);
+// userApp.use(initialRoutes);
 
 // app.get("/", (req,res) => {
 //     console.log(req.body);

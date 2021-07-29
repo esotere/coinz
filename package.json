@@ -22,7 +22,8 @@
     "express": "^4.17.1",
     "mongoose": "^5.13.3",
     "mongoose-float": "^1.0.4",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
   },
   "repository": {
     "type": "git",
