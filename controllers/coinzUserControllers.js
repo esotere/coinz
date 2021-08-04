@@ -1,5 +1,5 @@
 let User = require("../model/users.jsx");
-//  let UserInfo = require("../model/userInfo.jsx");
+let UserInfo = require("../model/userInfo.jsx");
 let path= require('path');
 let home = "../coinz/public/signIn.html";
 
@@ -28,31 +28,9 @@ module.exports = app => {
     // app.get('/index', (req, res) => {
     //     res.sendFile('./index.html', { root: __dirname });
     // });
+    // app.get('/favicon.ico', (req, res) => res.status(204)); // (to stop favicon error)
 
-
-
-    app.post("/api/users", (req,res) => {
-        let user = User({
-            title: req.body.title,
-            name: req.body.name, 
-            address: req.body.address, 
-            phoneNumber: req.body.phoneNumber, 
-            email: req.body.email,
-            bank_name: req.body.bank_name,
-            bank_account_number: req.body.bank_account_number, 
-            bvn: req.body.bvn,
-            system_account_number: req.body.system_account_number, 
-            accountBalance: req.body.accountBalance,
-            creation_date: req.body.creation_date
-        });
-        user.save((err,savedUser) => {
-            if (err) {
-                res.status(500).send({error: "Could NOT save user information!"});
-            } else {
-                res.status(200).send(`successfully saved, ${savedUser}`);
-            }
-        })
-    });
+   
     app.get("/api/users", (req,res) => {
         console.log(req.body);
         User.find({}, (err, users) => {
@@ -79,10 +57,53 @@ module.exports = app => {
             if (err) {
                 res.status(500).send({error: `Could not get user information`});
             } else {
-                res.status(200).send(user);
+                res.status(200).send(`${user}`);
             }
         })
     });
+    
+    // Get sum of all users account balance 
+    app.get("/api/users:total", (req,res) => {
+        console.log(req.params);
+        let totalBalance = req.body.totalBalance;
+        console.log(totalBalance);
+        if (!totalBalance || totalBalance === "") {
+            res.status(500).send({error: `Cannot Get Balance!`})
+        } else {
+        User.aggregate({$sum: accountBalance}, (err, total) => {
+            if (err) {
+                res.status(500).send({error: `Could not get user information`});
+            } else {
+                res.status(200).send(total);
+            }
+            
+        })
+        }
+    });
+
+     app.post("/api/users", (req,res) => {
+        let user = User({
+            title: req.body.title,
+            name: req.body.name, 
+            address: req.body.address, 
+            phoneNumber: req.body.phoneNumber, 
+            email: req.body.email,
+            bank_name: req.body.bank_name,
+            bank_account_number: req.body.bank_account_number, 
+            bvn: req.body.bvn,
+            system_account_number: req.body.system_account_number, 
+            accountBalance: req.body.accountBalance,
+            creation_date: req.body.creation_date
+        });
+        user.save((err,savedUser) => {
+            if (err) {
+                res.status(500).send({error: "Could NOT save user information!"});
+            } else {
+                res.status(200).send(`successfully saved, ${savedUser}`);
+            }
+        })
+    });
+
     app.put("/api/users/:system_account_number", (req,res) => {
         let changable = {
             title: req.body.title,
@@ -121,24 +142,6 @@ module.exports = app => {
             // } else {
             //     res.status(200).send(user)
             // }
-        }
-    });
-    // Get sum of all users account balance 
-    app.get("/api/users:total", (req,res) => {
-        console.log(req.params);
-        let totalBalance = req.body.totalBalance;
-        console.log(totalBalance);
-        if (!totalBalance || totalBalance === "") {
-            res.status(500).send({error: `Cannot Get Balance!`})
-        } else {
-        User.aggregate({$sum: accountBalance}, (err, total) => {
-            if (err) {
-                res.status(500).send({error: `Could not get user information`});
-            } else {
-                res.status(200).send(total);
-            }
-            
-        })
         }
     });
     
@@ -196,23 +199,23 @@ module.exports = app => {
         
     });
 
-    app.post("/api/userInfo", (req,res) => {
-        let userInfo = new UserInfo({
-            userName: req.body.userName, 
-            phoneNumber: req.body.phoneNumber, 
-            email: req.body.email,
-            password: req.body.password,
-            bank_name: req.body.bank_name,
-            bank_account_number: req.body.bank_account_number, 
-            bvn: req.body.bvn,
-            creation_date: req.body.creation_date
-        });
-        userInfo.save((err,savedUser) => {
-            if (err) {
-                res.status(500).send({error: "Could NOT save user information!"});
-            } else {
-                res.status(200).send(`successfully saved, ${savedUser}`);
-            }
-        })
-    });
+    // app.post("/api/userInfo", (req,res) => {
+    //     let userInfo = new UserInfo({
+    //         userName: req.body.userName, 
+    //         phoneNumber: req.body.phoneNumber, 
+    //         email: req.body.email,
+    //         password: req.body.password,
+    //         bank_name: req.body.bank_name,
+    //         bank_account_number: req.body.bank_account_number, 
+    //         bvn: req.body.bvn,
+    //         creation_date: req.body.creation_date
+    //     });
+    //     userInfo.save((err,savedUser) => {
+    //         if (err) {
+    //             res.status(500).send({error: "Could NOT save user information!"});
+    //         } else {
+    //             res.status(200).send(`successfully saved, ${savedUser}`);
+    //         }
+    //     })
+    // });
 };
