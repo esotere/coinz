@@ -32,7 +32,7 @@ module.exports = app => {
 
 
     app.post("/api/users", (req,res) => {
-        let user = new User({
+        let user = User({
             title: req.body.title,
             name: req.body.name, 
             address: req.body.address, 
@@ -66,6 +66,16 @@ module.exports = app => {
     app.get("/api/users:phoneNumber", (req,res) => {
         console.log(req.body);
         User.findOne({"phoneNumber": req.params.phoneNumber}, (err, user) => {
+            if (err) {
+                res.status(500).send({error: `Could not get user information`});
+            } else {
+                res.status(200).send(user);
+            }
+        })
+    });
+    app.get("/api/users:email", (req,res) => {
+        console.log(req.body);
+        User.findOne({"email": req.params.email}, (err, user) => {
             if (err) {
                 res.status(500).send({error: `Could not get user information`});
             } else {

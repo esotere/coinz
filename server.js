@@ -15,7 +15,7 @@ mongoose.connect("mongodb://localhost/coinzUsers", {useNewUrlParser: true, useUn
 // app.use(cors({"origin: 'http://localhost:7776'"}));
 app.use(logger("dev"));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.raw({type:"application/x-www-form-urlencoded"}));
 
 app.use(bodyParser.text({ type:"text/html"}));
