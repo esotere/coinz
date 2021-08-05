@@ -1,5 +1,5 @@
 const express = require("express");
-const bodyParser = require("body-parser");
+const bodyParser = require("body-parser"); // deprecated used express below
 const mongoose = require("mongoose");
 // const cors = require("cors");
 const logger = require("morgan");
@@ -14,13 +14,13 @@ mongoose.connect("mongodb://localhost/coinzUsers", {useNewUrlParser: true, useUn
 
 // app.use(cors({"origin: 'http://localhost:7776'"}));
 app.use(logger("dev"));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.raw({type:"application/x-www-form-urlencoded"}));
+app.use(express.json());     // changed bodyParser to express here and below
+app.use(express.urlencoded({extended: true}));
+app.use(express.raw({type:"application/x-www-form-urlencoded"}));
 
-app.use(bodyParser.text({ type:"text/html"}));
+app.use(express.text({ type:"text/html"}));
 
-app.use(bodyParser.json({type: "application/*+json"}));
+app.use(express.json({type: "application/*+json"}));
 
 require("./controllers/coinzUserControllers.js")(app);
 // require("./controllers/coinzUserLoginControllers.jsx")(userApp);
