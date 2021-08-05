@@ -13,11 +13,18 @@ name: {
     type: String,
     trim: true,
     unique: false,
+    require: true,
 },
 address: {
     type: String,
     trim: true,
     unique: false,
+    require: true,
+},
+countryCode: {
+    type: Number,
+    unique: false,
+    require: true,
 },
 phoneNumber: {
     type: Number,
@@ -56,7 +63,7 @@ accountBalance: {
 },
 creation_date: {
     type: Date,
-    // default: Date.now
+    default: Date.now
 }
 });
 

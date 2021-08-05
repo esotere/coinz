@@ -21,6 +21,11 @@ module.exports = app => {
         res.sendFile(path.resolve('../coinz/public/signIn.html')) //, { root: __dirname }));
     });
 
+    // app.get('/api/test', (req, res) => {
+    //     console.log(JSON.stringify(req.body));
+    //     res.send(JSON.stringify(req.body));
+    // });
+
     // app.get('/', (req, res) => {
     //     res.sendFile('../signIn.html', { root: __dirname });
     // });
@@ -28,7 +33,7 @@ module.exports = app => {
     // app.get('/index', (req, res) => {
     //     res.sendFile('./index.html', { root: __dirname });
     // });
-    // app.get('/favicon.ico', (req, res) => res.status(204)); // (to stop favicon error)
+    app.get('/favicon.ico', (req, res) => res.status(204)); // (to stop favicon error)
 
    
     app.get("/api/users", (req,res) => {
@@ -41,7 +46,7 @@ module.exports = app => {
             }
         })
     });
-    app.get("/api/users:phoneNumber", (req,res) => {
+    app.get("/api/users/:phoneNumber", (req,res) => {
         console.log(req.body);
         User.findOne({"phoneNumber": req.params.phoneNumber}, (err, user) => {
             if (err) {
@@ -51,19 +56,19 @@ module.exports = app => {
             }
         })
     });
-    app.get("/api/users:email", (req,res) => {
+    app.get("/api/users/:email", (req,res) => {
         console.log(req.body);
         User.findOne({"email": req.params.email}, (err, user) => {
             if (err) {
                 res.status(500).send({error: `Could not get user information`});
             } else {
-                res.status(200).send(`${user}`);
+                res.status(200).send(user);
             }
         })
     });
     
     // Get sum of all users account balance 
-    app.get("/api/users:total", (req,res) => {
+    app.get("/api/users/:total", (req,res) => {
         console.log(req.params);
         let totalBalance = req.body.totalBalance;
         console.log(totalBalance);
@@ -71,7 +76,7 @@ module.exports = app => {
             res.status(500).send({error: `Cannot Get Balance!`})
         } else {
         User.aggregate({$sum: accountBalance}, (err, total) => {
-            if (err) {
+            if (!err) {
                 res.status(500).send({error: `Could not get user information`});
             } else {
                 res.status(200).send(total);
@@ -85,7 +90,8 @@ module.exports = app => {
         let user = User({
             title: req.body.title,
             name: req.body.name, 
-            address: req.body.address, 
+            address: req.body.address,
+            countryCode: req.body.countryCode, 
             phoneNumber: req.body.phoneNumber, 
             email: req.body.email,
             bank_name: req.body.bank_name,
@@ -108,8 +114,9 @@ module.exports = app => {
         let changable = {
             title: req.body.title,
             name: req.body.name, 
-            address: req.body.address, 
-            phoneNumber: req.body.phoneNumber, 
+            address: req.body.address,
+            countryCode: req.body.countryCode, 
+            phoneNumber: req.body.phoneNumber,
             email: req.body.email,
             bank_name: req.body.bank_name,
             bank_account_number: req.body.bank_account_number, 
@@ -123,7 +130,8 @@ module.exports = app => {
             // let objectFound = false;
             User.updateOne({"system_account_number": req.params.system_account_number}, {$set:{title: req.body.title,
                 name: req.body.name, 
-                address: req.body.address, 
+                address: req.body.address,
+                countryCode: req.body.countryCode, 
                 phoneNumber: req.body.phoneNumber, 
                 email: req.body.email,
                 bank_name: req.body.bank_name,
