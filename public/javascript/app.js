@@ -1,4 +1,4 @@
-const { response } = require("express");
+//const { response } = require("express");
 
 $(function() {
   // ****************************************
@@ -156,8 +156,8 @@ $().on("click", e => {
     let phoneNumber2 = $("#phone-2")
       .val()
       .trim();
-    let queryUrl = "api/users" + phoneNumber1;
-    let queryUrl2 = "api/users" + phoneNumber2;
+    let queryUrl = "api/users/" + phoneNumber1;
+    let queryUrl2 = "api/users/" + phoneNumber2;
     let phone1AcctBal = [],
       phone2AcctBal = [],
       newUser1Bal = [],
@@ -260,7 +260,7 @@ $().on("click", e => {
   //********************************************************* */
   let populate = () => {
     let queryUrl =
-      "/api/users" +
+      "/api/users/" +
       $("#phone-1")
         .val()
         .trim();

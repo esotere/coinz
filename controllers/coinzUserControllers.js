@@ -21,6 +21,10 @@ module.exports = app => {
         res.sendFile(path.resolve('../coinz/public/signIn.html')) //, { root: __dirname }));
     });
 
+    app.get('/home', (req, res) => {
+        res.sendFile(path.resolve('../coinz/public/index.html')) //, { root: __dirname }));
+    });
+
     app.get('/api/test', (req, res) => {
         let data = req.body
         console.log(JSON.stringify(data));
@@ -87,8 +91,7 @@ module.exports = app => {
         })
         }
     });
-
-     app.post("/api/users", (req,res) => {
+    app.post("/api/users", (req,res) => {
         let user = User({
             title: req.body.title,
             name: req.body.name, 
