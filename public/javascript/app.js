@@ -1,5 +1,3 @@
-//const { response } = require("express");
-
 $(function() {
   // ****************************************
   // Google oAuth
@@ -83,8 +81,10 @@ $().on("click", e => {
       console.log(response);
   
     if (response.phoneNumber === phoneNumber && 
-        response.email === password) {
+        response.email === password) {    //  for testing purposes should not be email
             console.log(`Welcome ${response.name}!`);
+            window.location.href="../index.html";
+            $("phone-1").val = response.phoneNumber
     } else {
         alert(`Invalid Username and/or Password. Please confirm and try again.`);
     };

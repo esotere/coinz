@@ -8,6 +8,15 @@
     // app.get('/index.html', (req, res) => {
     //     res.sendFile('./index.html', { root: __dirname });
     // });
+    
+
+    // app.get('/', (req, res) => {
+    //     res.sendFile('../signIn.html', { root: __dirname });
+    // });
+
+    // app.get('/index', (req, res) => {
+    //     res.sendFile('./index.html', { root: __dirname });
+    // });
 
 
     // app.post("/api/users", (req,res) => {

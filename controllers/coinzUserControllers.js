@@ -6,18 +6,9 @@ let signIn = "../coinz/public/signIn.html";
 
 
 module.exports = app => {
-
-    // app.get("/", (req,res) => {
-    //     console.log(req.body);
-    //     //User.find({}, (err, home) => {
-    //         // if (err) {
-    //         //     res.status(400).send({error: `Could not find page`});
-    //         // } else {
-    //             res.status(200).sendFile(path.join(home));
-    //        // }
-    //     //})
-    // });
-        //Added line 20 - 22 for app to land on signin/sign up page
+    app.get('/favicon.ico', (req, res) => res.status(204)); // (to stop favicon error)
+ 
+    //Added next three lines for app to land on signin/sign up page
     app.get('/', (req, res) => {
         res.sendFile(path.resolve(signIn)) //, { root: __dirname }));
     });
@@ -30,18 +21,7 @@ module.exports = app => {
         let data = req.body
         console.log(JSON.stringify(data));
         res.json(JSON.stringify(data));
-
     });
-
-    // app.get('/', (req, res) => {
-    //     res.sendFile('../signIn.html', { root: __dirname });
-    // });
-
-    // app.get('/index', (req, res) => {
-    //     res.sendFile('./index.html', { root: __dirname });
-    // });
-    app.get('/favicon.ico', (req, res) => res.status(204)); // (to stop favicon error)
-
    
     app.get("/api/users", (req,res) => {
         console.log(req.body);
@@ -75,7 +55,7 @@ module.exports = app => {
     });
     
     // Get sum of all users account balance 
-    app.get("/api/users/:total", (req,res) => {
+    app.get("/api/users/total", (req,res) => {
         console.log(req.params);
         let totalBalance = req.body.totalBalance;
         console.log(totalBalance);
@@ -92,6 +72,22 @@ module.exports = app => {
         })
         }
     });
+
+    app.get("/api/users/user/:system_account_number", (req,res) => {
+        console.log(req.params);
+        // let objectFound = false;
+        // let newListOfUsers = [];
+        User.findOne({"system_account_number": req.params.system_account_number}, (err, user) => {
+            if (err) {
+                res.status(500).send({error: `Unable to get information!`});
+                
+            } else {
+                // objectFound = true;
+                res.status(200).send(user);
+            }
+        })            
+    });
+
     app.post("/api/users", (req,res) => {
         let user = User({
             title: req.body.title,
@@ -151,11 +147,6 @@ module.exports = app => {
                     res.status(200).send(balance);
                 }
             })
-            // if (!objectFound) {
-            //     res.status(500).send({error: `ID Not Found!`})
-            // } else {
-            //     res.status(200).send(user)
-            // }
         }
     });
     
@@ -166,13 +157,6 @@ module.exports = app => {
         if (!newBalance || newBalance === "") {
             res.status(500).send({error: `Cannot Update Balance!`})
         } else {
-            // let objectFound = false;
-        // User.findOne({"phoneNumber": req.params.phoneNumber}, (err, accountBalance) => {
-        //     accountBalance = req.body.accountBalance;
-        //     if (err) {
-        //         res.status(500).send({error: `Could Not Find Item`});
-                
-        //     } else {
                 User.updateOne({"phoneNumber": req.params.phoneNumber}, {$set:{"accountBalance": newBalance}}, (err, balance) => {
                     if (err) {
                         res.status(500).send({error: `Unable to update!`});
@@ -181,16 +165,9 @@ module.exports = app => {
                         // objectFound = true;
                         res.status(200).send(balance);
                     }
-                })
-                    // if (!objectFound) {
-                    //     res.status(500).send({error: `Account Not Found!`});
-                    // } else {
-                    //     res.status(200).send(user)
-                    // }
+                 })
                 }
             })
-    //     }
-    // })
     app.delete("/api/users/user/:system_account_number", (req,res) => {
         console.log(req.params);
         // let objectFound = false;
@@ -203,33 +180,6 @@ module.exports = app => {
                 // objectFound = true;
                 res.status(200).send(users);
             }
-        })
-            // if (!objectFound) {
-            //     res.status(500).send({error: `ID Not Found!`})
-            // } else {
-            //     res.status(200).send(users)
-            // }
-    
-        
-    });
-
-    // app.post("/api/userInfo", (req,res) => {
-    //     let userInfo = new UserInfo({
-    //         userName: req.body.userName, 
-    //         phoneNumber: req.body.phoneNumber, 
-    //         email: req.body.email,
-    //         password: req.body.password,
-    //         bank_name: req.body.bank_name,
-    //         bank_account_number: req.body.bank_account_number, 
-    //         bvn: req.body.bvn,
-    //         creation_date: req.body.creation_date
-    //     });
-    //     userInfo.save((err,savedUser) => {
-    //         if (err) {
-    //             res.status(500).send({error: "Could NOT save user information!"});
-    //         } else {
-    //             res.status(200).send(`successfully saved, ${savedUser}`);
-    //         }
-    //     })
-    // });
+        })            
+    });    
 };
