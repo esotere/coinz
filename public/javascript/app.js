@@ -7,7 +7,7 @@ $(function() {
 
   // coinz.init({
   //   google: process.env.Client_ID  
-  // },{redirect_uri:'http://localhost:7700/'});
+  // },{redirect_uri:'http://localhost:7960/home/'});
 
   // ****************************************
   // format date in html
@@ -63,34 +63,62 @@ $().on("click", e => {
  });
 
 // ******************************************
-  // Signin
+  // Signin using phone number
 //******************************************************* */
 
   $("#signIn").on("click", e => {
     e.preventDefault()
     console.log("clicked")
-    let queryUrl2 = "/api/users/:phoneNumber"
-    let username 
-    let password
-    let phoneNumber
+    let password = $("#pword").val().trim();
+    let phoneNumber = $("#uname").val().trim();
+    let queryUrl2 = "/api/users/user/" + phoneNumber
     // let unameCheck
     // let check
 
     $.ajax({
       url: queryUrl2,
       method: "GET",
-      data: userInfo
+      //data: userInfo
   }).then(response => {
       console.log(response);
-  });
-    if (username === response.unameCheck || 
-        phoneNumber === response.phoneNumber && 
-        password === response.check) {
-            console.log(`Welcome ${response.unameCheck}!`);
+  
+    if (response.phoneNumber === phoneNumber && 
+        response.email === password) {
+            console.log(`Welcome ${response.name}!`);
     } else {
         alert(`Invalid Username and/or Password. Please confirm and try again.`);
     };
   });
+});
+
+  // ******************************************
+  // Signin using email
+//******************************************************* */
+
+// $("#signIn").on("click", e => {
+//   e.preventDefault()
+//   console.log("clicked")
+//   let email = $("#uname").val().trim();
+//   let password = $("#pword").val().trim();
+//   let queryUrl2 = "/api/users/user" + email
+
+//   // let unameCheck
+//   // let check
+
+//   $.ajax({
+//     url: queryUrl2,
+//     method: "GET",
+//     data: userInfo
+// }).then(response => {
+//     console.log(response);
+//   if (email === response.email && 
+//       password === response.check) {
+//           console.log(`Welcome ${response.unameCheck}!`);
+//   } else {
+//       alert(`Invalid Username and/or Password. Please confirm and try again.`);
+//   };
+// });
+// });
 
 
 
@@ -156,8 +184,8 @@ $().on("click", e => {
     let phoneNumber2 = $("#phone-2")
       .val()
       .trim();
-    let queryUrl = "api/users/" + phoneNumber1;
-    let queryUrl2 = "api/users/" + phoneNumber2;
+    let queryUrl = "api/users/user/" + phoneNumber1;
+    let queryUrl2 = "api/users/user/" + phoneNumber2;
     let phone1AcctBal = [],
       phone2AcctBal = [],
       newUser1Bal = [],
@@ -192,7 +220,7 @@ $().on("click", e => {
         let change = { accountBalance: newUser1Bal[0] };
         // Call to Update Sender Account Balance
         $.ajax({
-          url: "api/users/" + phoneNumber1,
+          url: "api/users/user/" + phoneNumber1,
           method: "PATCH",
           contentType: "application/json",
           data: JSON.stringify(change)
@@ -223,7 +251,7 @@ $().on("click", e => {
             let change = { accountBalance: newUser2Bal[0] };
             // Call to Update Recipient Account Balance
             $.ajax({
-              url: "api/users/" + phoneNumber2,
+              url: "api/users/user/" + phoneNumber2,
               method: "PATCH",
               contentType: "application/json",
               data: JSON.stringify(change)
@@ -260,7 +288,7 @@ $().on("click", e => {
   //********************************************************* */
   let populate = () => {
     let queryUrl =
-      "/api/users/" +
+      "/api/users/user/" +
       $("#phone-1")
         .val()
         .trim();

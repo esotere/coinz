@@ -14,8 +14,8 @@ mongoose.connect("mongodb://localhost/coinzUsers", {useNewUrlParser: true, useUn
 
 // app.use(cors({"origin: 'http://localhost:7776'"}));
 app.use(logger("dev"));
-app.use(express.json());     // changed bodyParser to express here and below
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({extended: true}));     // changed bodyParser to express here and below
+app.use(express.json());
 app.use(express.raw({type:"application/x-www-form-urlencoded"}));
 
 app.use(express.text({ type:"text/html"}));
@@ -23,13 +23,14 @@ app.use(express.text({ type:"text/html"}));
 app.use(express.json({type: "application/*+json"}));
 
 require("./controllers/coinzUserControllers.js")(app);
-// require("./controllers/coinzUserLoginControllers.jsx")(userApp);
+// require("./controllers/coinzUserControllers.js");
 
 // app.use(express.static(__dirname + "./public/signIn.html")); // used to serve up sign in page
 // userApp.use(initialRoutes);                              // original below marked for use
 app.use(express.static(__dirname + "/public/"));         // *for use*
 app.use(routes);
 // userApp.use(initialRoutes);
+app.use("/", routes)
 
 // app.get("/", (req,res) => {
 //     console.log(req.body);

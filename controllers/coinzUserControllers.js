@@ -1,7 +1,8 @@
 let User = require("../model/users.jsx");
-let UserInfo = require("../model/userInfo.jsx");
+// let UserInfo = require("../model/userInfo.jsx");
 let path= require('path');
-let home = "../coinz/public/signIn.html";
+let home = "../coinz/public/index.html";
+let signIn = "../coinz/public/signIn.html";
 
 
 module.exports = app => {
@@ -18,11 +19,11 @@ module.exports = app => {
     // });
         //Added line 20 - 22 for app to land on signin/sign up page
     app.get('/', (req, res) => {
-        res.sendFile(path.resolve('../coinz/public/signIn.html')) //, { root: __dirname }));
+        res.sendFile(path.resolve(signIn)) //, { root: __dirname }));
     });
 
     app.get('/home', (req, res) => {
-        res.sendFile(path.resolve('../coinz/public/index.html')) //, { root: __dirname }));
+        res.sendFile(path.resolve(home)) //, { root: __dirname }));
     });
 
     app.get('/api/test', (req, res) => {
@@ -52,7 +53,7 @@ module.exports = app => {
             }
         })
     });
-    app.get("/api/users/:phoneNumber", (req,res) => {
+    app.get("/api/users/user/:phoneNumber", (req,res) => {
         console.log(req.body);
         User.findOne({"phoneNumber": req.params.phoneNumber}, (err, user) => {
             if (err) {
@@ -62,7 +63,7 @@ module.exports = app => {
             }
         })
     });
-    app.get("/api/users/:email", (req,res) => {
+    app.get("/api/users/user/:email", (req,res) => {
         console.log(req.body);
         User.findOne({"email": req.params.email}, (err, user) => {
             if (err) {
@@ -115,7 +116,7 @@ module.exports = app => {
         })
     });
 
-    app.put("/api/users/:system_account_number", (req,res) => {
+    app.put("/api/users/user/:system_account_number", (req,res) => {
         let changable = {
             title: req.body.title,
             name: req.body.name, 
@@ -158,7 +159,7 @@ module.exports = app => {
         }
     });
     
-    app.patch("/api/users/:phoneNumber", (req, res) => {
+    app.patch("/api/users/user/:phoneNumber", (req, res) => {
         console.log(req.params);
         let newBalance = req.body.accountBalance;
         console.log(newBalance);
@@ -190,7 +191,7 @@ module.exports = app => {
             })
     //     }
     // })
-    app.delete("/api/users/:system_account_number", (req,res) => {
+    app.delete("/api/users/user/:system_account_number", (req,res) => {
         console.log(req.params);
         // let objectFound = false;
         // let newListOfUsers = [];
