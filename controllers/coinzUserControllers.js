@@ -27,7 +27,7 @@ module.exports = app => {
         console.log(req.body);
         User.find({}, (err, users) => {
             if (err) {
-                res.status(500).send({error: `Could not get user information`});
+                res.status(500).send({error: `Could Not Get Information Of All Users`});
             } else {
                 res.status(200).send(users);
             }
@@ -37,23 +37,42 @@ module.exports = app => {
         console.log(req.body);
         User.findOne({"phoneNumber": req.params.phoneNumber}, (err, user) => {
             if (err) {
-                res.status(500).send({error: `Could not get user information`});
+                res.status(500).send({error: `Could Not Get User Information`});
             } else {
                 res.status(200).send(user);
             }
         })
     });
-    app.get("/api/users/user/:email", (req,res) => {
+    app.get("/api/users/user/email/:email", (req,res) => {
         console.log(req.body);
         User.findOne({"email": req.params.email}, (err, user) => {
             if (err) {
-                res.status(500).send({error: `Could not get user information`});
+                res.status(500).send({error: `Could Not Get User Information`});
             } else {
                 res.status(200).send(user);
             }
         })
     });
-    
+            // Added 'san' System Account Number
+    app.get("/api/users/user/san/:system_account_number", (req,res) => {
+        console.log(req.params);
+        // let objectFound = false;
+        // let newListOfUsers = [];
+        User.findOne({"system_account_number": req.params.system_account_number}, (err, user) => {
+            if (err) {
+                res.status(500).send({error: `Account Number Not Found!`});
+                
+            } else {
+                // objectFound = true;
+                res.status(200).send(user);
+            }
+            //  if (!objectFound) {
+            //      res.status(500).send({error: `System Account Number Not Found!`})
+            //  } else {
+            //      res.status(200).send(users)
+            //  }
+        })            
+    });
     // Get sum of all users account balance 
     app.get("/api/users/total", (req,res) => {
         console.log(req.params);
@@ -64,7 +83,7 @@ module.exports = app => {
         } else {
         User.aggregate({$sum: accountBalance}, (err, total) => {
             if (!err) {
-                res.status(500).send({error: `Could not get user information`});
+                res.status(500).send({error: `Could Not Get Total Balance`});
             } else {
                 res.status(200).send(total);
             }
@@ -73,20 +92,6 @@ module.exports = app => {
         }
     });
 
-    app.get("/api/users/user/:system_account_number", (req,res) => {
-        console.log(req.params);
-        // let objectFound = false;
-        // let newListOfUsers = [];
-        User.findOne({"system_account_number": req.params.system_account_number}, (err, user) => {
-            if (err) {
-                res.status(500).send({error: `Unable to get information!`});
-                
-            } else {
-                // objectFound = true;
-                res.status(200).send(user);
-            }
-        })            
-    });
 
     app.post("/api/users", (req,res) => {
         let user = User({
@@ -111,8 +116,8 @@ module.exports = app => {
             }
         })
     });
-
-    app.put("/api/users/user/:system_account_number", (req,res) => {
+        // Added 'san' System Account Number
+    app.put("/api/users/user/san/:system_account_number", (req,res) => {
         let changable = {
             title: req.body.title,
             name: req.body.name, 

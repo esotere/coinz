@@ -100,7 +100,7 @@ $().on("click", e => {
 //   console.log("clicked")
 //   let email = $("#uname").val().trim();
 //   let password = $("#pword").val().trim();
-//   let queryUrl2 = "/api/users/user" + email
+//   let queryUrl2 = "/api/users/user/email" + email
 
 //   // let unameCheck
 //   // let check

@@ -23,6 +23,7 @@
     "mongoose": "^5.13.3",
     "mongoose-float": "^1.0.4",
     "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
     "path": "^0.12.7"
   },
   "repository": {
