@@ -63,6 +63,7 @@ $().on("click", e => {
 // ******************************************
   // Signin using phone number
 //******************************************************* */
+let hold;
 
   $("#signIn").on("click", e => {
     e.preventDefault()
@@ -70,6 +71,8 @@ $().on("click", e => {
     let password = $("#pword").val().trim();
     let phoneNumber = $("#uname").val().trim();
     let queryUrl2 = "/api/users/user/" + phoneNumber
+    console.log(phoneNumber);
+    console.log(password);
     // let unameCheck
     // let check
 
@@ -79,14 +82,18 @@ $().on("click", e => {
       //data: userInfo
   }).then(response => {
       console.log(response);
-  
-    if (response.phoneNumber === phoneNumber && 
+      console.log(response.phoneNumber);
+      console.log(response.email);
+      
+    if (JSON.stringify(response.phoneNumber) === phoneNumber && 
         response.email === password) {    //  for testing purposes should not be email
-            console.log(`Welcome ${response.name}!`);
-            window.location.href="../index.html";
-            $("phone-1").val = response.phoneNumber
+          window.location.href="../index.html";
+          console.log(`Welcome ${response.name}!`);
+            
     } else {
         alert(`Invalid Username and/or Password. Please confirm and try again.`);
+        window.location.href="/";
+        
     };
   });
 });
@@ -95,31 +102,132 @@ $().on("click", e => {
   // Signin using email
 //******************************************************* */
 
-// $("#signIn").on("click", e => {
-//   e.preventDefault()
-//   console.log("clicked")
-//   let email = $("#uname").val().trim();
-//   let password = $("#pword").val().trim();
-//   let queryUrl2 = "/api/users/user/email" + email
+$("#signIn").on("click", e => {
+  e.preventDefault()
+  console.log("clicked")
+  let email = $("#uname").val().trim();
+  let password = $("#pword").val().trim();
+  let queryUrl2 = "/api/users/user/email/" + email
+  console.log(email);
+  console.log(password);
 
-//   // let unameCheck
-//   // let check
+  // let unameCheck
+  // let check
 
-//   $.ajax({
-//     url: queryUrl2,
-//     method: "GET",
-//     data: userInfo
-// }).then(response => {
-//     console.log(response);
-//   if (email === response.email && 
-//       password === response.check) {
-//           console.log(`Welcome ${response.unameCheck}!`);
-//   } else {
-//       alert(`Invalid Username and/or Password. Please confirm and try again.`);
-//   };
+  $.ajax({
+    url: queryUrl2,
+    method: "GET",
+    // data: userInfo
+}).then(response => {
+    console.log(response);
+    console.log(response.phoneNumber);
+    console.log(response.email);
+
+  if (email === response.email && 
+      password === JSON.stringify(response.phoneNumber)) {
+        hold = JSON.stringify(response.phoneNumber).trim();
+        console.log(`This is the hold variable: ${hold}`);
+        window.location.href="../index.html";
+        // $(window).ready(() => {
+        // $("input #phone-1").val(hold);
+        //   let setNum = () => {
+        //      console.log(hold)
+        //      // setValues(hold)
+        //      $("#date").val(today);
+        //      $("input #phone-1").val(hold);
+        //      $("#phone-2").focus();
+        //      };
+        //      setNum();
+        //  });
+
+      //   window.onload = (event) => {
+      //     this.location.href="../index.html";
+      //     setNum(hold);
+      //     console.log('The page has fully loaded');
+      // };
+
+      // if ( window.location.href="../index.html") {
+      //     // asyncCall()
+      //    hold = $("#phone-1").val(response.phoneNumber)
+      // }
+  } else {
+      alert(`Invalid Username and/or Password. Please confirm and try again.`);
+      window.location.href="/";
+       };
+       console.log(`This is the hold variable: ${hold}`);
+      //  setValues(hold)
+      //  return hold;
+      });
+    });
+
+    $(window).ready(() => {
+      setNum();
+      console.log(hold);
+      setValues(hold);
+    });
+
+// $(window).ready(() => {
+//   setInterval(() => {
+//     console.log(hold)
+//     // setValues(hold)
+//     $("#phone-1").val(hold);
+//     $("#phone-2").focus();
+//     }, 100);
 // });
-// });
 
+
+
+
+// *********************************************************
+// Set phone number value function after successful sign in
+// **********************************************************
+    let setValues = (x) => {
+      $("#phone-1").empty()
+      $("#phone-1").val(x);
+    }
+
+    let setNum = () => {
+      $("#date").val(today);
+      $("#phone-1").val(hold);
+      $("#phone-2").focus();
+    };
+
+    // let setValue = (() => {
+    //   console.log(hold)
+    //   // setValues(hold)
+    //   $("#phone-1").val(hold);
+    //   $("#phone-2").focus();
+    //   });
+
+//  let setValues = (x) => {
+//   //  $(function() {
+//   //  $("../index.html").load( e => {
+//   //    e.preventDefault()
+//     // window.document.$("#phone-1").val(x);
+//     // setValue(JSON.stringify(response.phoneNumber));
+//     window.location.href = "../index.html";
+//     $("#phone-1").val(JSON.stringify(x));
+//     $("#phone-2").focus()
+//     // $("#phone-1").prev('input').val(response.phoneNumber)
+//     // })
+//   // })
+//  }
+
+let resolveAfter2Seconds = () => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve($("#phone-1").val(JSON.stringify(response.phoneNumber)));
+    }, 2000);
+  });
+}
+
+let asyncCall = async () => {
+  console.log('calling');
+  const result = await resolveAfter2Seconds();
+  $("#phone-2").focus();
+  console.log(result);
+  // expected output: "resolve()"
+}
 
 
 

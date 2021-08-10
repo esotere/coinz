@@ -75,21 +75,22 @@ module.exports = app => {
     });
     // Get sum of all users account balance 
     app.get("/api/users/total", (req,res) => {
-        console.log(req.params);
-        let totalBalance = req.body.totalBalance;
-        console.log(totalBalance);
-        if (!totalBalance || totalBalance === "") {
-            res.status(500).send({error: `Cannot Get Balance!`})
-        } else {
-        User.aggregate({$sum: accountBalance}, (err, total) => {
-            if (!err) {
+        // console.log(req.params);
+        // let totalBalance = req.body.totalBalance;
+        let accountBalance = req.body.accountBalance
+        console.log(accountBalance);
+        // if (!accountBalance || accountBalance === "") {
+        //     res.status(500).send({error: `Cannot Get Balance!`})
+        // } else {
+        User.aggregate([{$sum: accountBalance}], (err, total) => {
+            if (err) {
                 res.status(500).send({error: `Could Not Get Total Balance`});
             } else {
                 res.status(200).send(total);
             }
             
-        })
-        }
+          })
+     // }
     });
 
 
