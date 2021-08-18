@@ -11,6 +11,10 @@ module.exports = app => {
     app.get('/favicon.ico', (req, res) => res.status(204)); // (to stop favicon error)
 
     //Added next three lines for app to land on signin/sign up page
+    app.get('/', (req, res) => {
+        res.sendFile(path.resolve(signIn)) //, { root: __dirname }));
+    });
+
     app.get('/signin', (req, res) => {
         res.sendFile(path.resolve(signIn)) //, { root: __dirname }));
     });
