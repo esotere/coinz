@@ -1,0 +1,44 @@
+GET http://localhost:7777/api/users
+
+
+###
+
+POST http://localhost:7777/api/users
+Content-Type: application/json
+
+{
+    "title": "Mrs",
+    "firstName": "Jes",
+    "lastName": "Ter",
+    "address": "7777 Address st",
+    "countryCode": 234,
+    "phoneNumber": 8041459659,
+    "email": "jester2@example.com",
+    "bank_name": "Best Bank Bank Name",
+    "bank_account_number": 86652885566277,
+    "bvn": 738383939939393900,
+    "system_account_number": 40007333352320774,
+    "accountBalance": 60000000000.56,
+    "password": "password2"
+    }
+
+###
+POST http://localhost:7777/api/users/user/email/estester@example.com
+Content-Type: application/json
+
+{
+    "email": "estester2@example.com",
+    "password": "passw"
+}
+
+###
+
+    
+POST http://localhost:7777/api/users/login
+Content-Type: application/json
+
+{
+    "firstName": "Jes",
+    "lastName": "Tep",
+    "password": "password2"
+}

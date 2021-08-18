@@ -73,3 +73,8 @@
 input.inputBox {
     text-align: right;
 }
+
+#title {
+    width: 12%;
+    height: 4%;
+}
