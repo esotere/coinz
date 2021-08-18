@@ -13,6 +13,12 @@ title: {
     trim: true,
     unique: false,
 },
+userName: {
+    type: String,
+    trim: true,
+    unique: true,
+    require: true,
+},
 firstName: {
     type: String,
     trim: true,

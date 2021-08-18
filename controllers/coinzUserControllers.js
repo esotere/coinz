@@ -118,6 +118,7 @@ module.exports = app => {
                 console.log(hashedPassword);
                 let user =  new User({
                     title: req.body.title,
+                    userName: req.body.userName,
                     firstName: req.body.firstName,
                     lastName: req.body.lastName, 
                     address: req.body.address,
@@ -167,30 +168,48 @@ module.exports = app => {
         })
     });
 
-    app.post("/api/users/login", async  (req,res) => {
-       await User.findOne({"firstName": req.body.firstName, "lastName": req.body.lastName}, async (err,savedUser) => {
-            console.log(req.body.firstName)
-            console.log(req.body.lastName)
-            console.log(req.body.password)
-                if (err || req.body.firstName === null) {
-                   return res.status(400).send({error: "Could NOT find user information!"});
-                }
-                //  else {
-                //     res.send(`successfully found, ${savedUser}`);
-                // }
-                try {
-                    if (await bcrypt.compare(req.body.password, User.password)) {
-                        res.send(`successfully found, ${savedUser}`);
-                        // res.send("Success!");
-                    } else {
-                        res.send("Incorrect password!");
-                    }
-                } catch {
-                    res.status(500).send("aweful stuff");
-                    return;
-                }
-            })
+    app.post("/api/users/login", async (req,res) => {
+        try {
+        let user = await User.findOne({"firstName": req.body.firstName, "lastName": req.body.lastName}).exec();
+                if (!user) {
+                return res.status(400).send({error: "Could NOT find user information!"});
+            }
+            if (!bcrypt.compareSync(req.body.password, user.password)) {
+                return res.status(400).send({message:`Unsuccessful, incorrect username and password combination`});
+                    // res.send("Success!");
+                } 
+                res.send({ message: `Welcome ${user.firstName} Successfully logged in correct password!`});
+               
+            } catch (error){
+                res.status(500).send(`aweful stuff ${error}`);
+                
+            }
         });
+
+    // app.post("/api/users/login", async (req,res) => {
+    //    try {
+    //    let user = await User.findOne({"firstName": req.body.firstName, "lastName": req.body.lastName}, (err,savedUser) => {
+    //         console.log(req.body.firstName);
+    //         console.log(req.body.lastName);
+    //         console.log(req.body.password);
+    //             if (err || req.body.firstName === null) {
+    //                 return res.status(400).send({error: "Could NOT find user information!"});
+    //             }
+    //              if ( bcrypt.compare(req.body.password, user.password)) {
+    //                     res.send(`successfully found, ${savedUser}`);
+    //                     // res.send("Success!");
+    //                 } else {
+    //                     res.send("Incorrect password!");
+    //                 }
+    //             })
+    //             } catch (error) {
+    //                 res.status(500).send("aweful stuff");
+    //                 return;
+    //             }
+              
+    //         })
+            
+   
         // Added 'san' System Account Number
     app.put("/api/users/user/san/:system_account_number", (req,res) => {
         let changable = {

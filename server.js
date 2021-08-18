@@ -2,11 +2,11 @@ require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser"); // deprecated used express below
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const axios = require("axios")
+// const bcrypt = require("bcrypt");
+const axios = require("axios");
 const clientID = process.env.Client_ID;
 const clientSecret = process.env.Client_Secret;
-const path = require("path")
+const path = require("path");
 // const cors = require("cors");
 const logger = require("morgan");
 const routes = require("./controllers/coinzUserControllers.js");
