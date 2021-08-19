@@ -24,12 +24,12 @@ Content-Type: application/json
     }
 
 ###
-POST http://localhost:7769/api/users/user/email/estester@example.com
+POST http://localhost:7769/api/users/login/magic
 Content-Type: application/json
 
 {
-    "email": "estester2@example.com",
-    "password": "passw"
+    "firstName": "magic",
+    "password": "passpass"
 }
 
 ###
@@ -42,4 +42,24 @@ Content-Type: application/json
     "firstName": "Jes",
     "lastName": "Ter",
     "password": "password2"
+}
+
+
+###
+POST http://localhost:7760/api/users/login/magicone@example.com
+Content-Type: application/json
+
+{
+    "email": "magicone@example.com",
+    "password": passpass
+}
+
+
+###
+POST http://localhost:7760/api/users/user/email/magicone@example.com
+Content-Type: application/json
+
+{
+    "email": "magicone@example.com",
+    "password": passpass
 }

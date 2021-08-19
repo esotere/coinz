@@ -27,9 +27,9 @@ module.exports = app => {
         res.sendFile(path.resolve(home)) //, { root: __dirname }));
     });
 
-    app.post('/signup', (req, res) => {
+    // app.post('/api/users/login', (req, res) => {
          
-    });
+    // });
 
     app.get('/api/test', (req, res) => {
         let data = req.body
@@ -129,44 +129,95 @@ module.exports = app => {
                     bank_account_number: req.body.bank_account_number, 
                     bvn: req.body.bvn,
                     system_account_number: req.body.system_account_number, 
-                    accountBalance: req.body.accountBalance,
+                    // accountBalance: req.body.accountBalance,
                     password: hashedPassword,
-                    creation_date: req.body.creation_date
+                    // creation_date: req.body.creation_date
             });
             user.save({user},(err,savedUser) => {
                 if (err) {
                    return res.status(500).send(err);
                 } else {
                     res.status(200).send(`successfully saved, ${savedUser}`);
+                    res.redirect("../public/signIn.html");
                 }
             })
         } catch {
-            return res.status(500).send(`something went wrong`);
-            
+             res.status(500).send(`something went wrong`);
+             return res.redirect("../public/signIn.html");
+
         }
     });
 
-    app.post("/api/users/user/email/:email", (req,res) => {
-        console.log(req.body);
-        User.findOne({"email": req.params.email}, async (err, user) => {
-            if (err) {
-                return res.status(400).send({error: `Could Not Get User Information`});
-            // } else {
-            //     res.send(user);
+    // test **************************
+    app.post("/api/users/login/:firstName", async (req,res) => {
+      try {
+          let data = {
+              firstName: req.params.firstName,
+              password: req.body.password
+          };
+        let user = await User.findOne({"firstName": data.firstName}).exec();
+                if (!user) {
+                return res.status(400).send({error: "Could NOT find user information!"});
             }
-            try {
-                if (await bcrypt.compare(req.body.password, User.password)) {
-                    res.send(`successfully signed in, ${user}`);
+            if (!bcrypt.compareSync(data.password, user.password)) {
+                return res.status(400).send({message:`Unsuccessful, incorrect username and password combination`});
                     // res.send("Success!");
-                } else {
-                   res.send("Incorrect password! Access Denied!");
-                }
-            } catch {
-                res.status(500).send("aweful stuff forbidden");
-                return;
+                } 
+                res.send({ message: `Welcome ${user.firstName}, Successfully logged in correct password!`});
+                // res.redirect("../public/index.html")
+            } catch (error){
+                res.status(500).send(`aweful stuff ${error}`);
+                
             }
-        })
-    });
+        });
+
+    //     app.post("/api/users/login/:email", async (req,res) => {
+    //         try {
+    //             let data = {
+    //                 email: req.params.email,
+    //                 password: req.body.password
+    //             };
+    //             let user = await User.findOne({"email": data.email}).exec();
+    //                  if (!user) {
+    //                      return res.status(400).send({error: `Could Not Get User Information`});
+    //                  }
+    //                 if (!bcrypt.compare(data.password, user.password)) {
+    //                     return res.status(400).send({message:`Unsuccessful, incorrect username and password combination`});
+    //                     // res.send("Success!");
+    //                 } 
+    //                 res.send({ message: `Welcome ${user.firstName}, Successfully logged in correct password!`});
+    //                 // res.redirect("../public/index.html")
+    //             } catch (error){
+    //                 res.status(500).send(`aweful stuff ${error}`);
+                    
+    //             }            
+    //         });
+
+
+
+    //     // *********************************
+
+    // app.post("/api/users/user/email/:email", async (req,res) => {
+    //     console.log(req.body);
+    //     User.findOne({"email": req.params.email}, async (err, user) => {
+    //         if (err) {
+    //             return res.status(400).send({error: `Could Not Get User Information`});
+    //         // } else {
+    //         //     res.send(user);
+    //         }
+    //         try {
+    //             if (await bcrypt.compare(req.body.password, User.password)) {
+    //                 res.send(`successfully signed in, ${user}`);
+    //                 // res.send("Success!");
+    //             } else {
+    //                res.send("Incorrect password! Access Denied!");
+    //             }
+    //         } catch {
+    //             res.status(500).send("aweful stuff forbidden");
+    //             return;
+    //         }
+    //     })
+    // });
 
     app.post("/api/users/login", async (req,res) => {
         try {

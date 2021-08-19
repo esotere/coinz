@@ -44,24 +44,39 @@ $(function () {
   // Signup
   //******************************************************* */
 
-  $().on("click", (e) => {
+  $("#signUp").on("click", (e) => {
     e.preventDefault();
     console.log("clicked");
-    let queryUrl = "/api/userInfo";
+    let queryUrl = "/api/users";
+    let title = $("#title").val().trim().toLowerCase();
+        username = $("#username").val().trim().toLowerCase();      
+        firstName = $("#firstName").val().trim().toLowerCase();
+        lastName = $("#lastName").val().trim().toLowerCase();
+        address = $("#address").val().trim().toLowerCase();
+        countryCode = $("#cCode").val().trim().toLowerCase();        
+        phoneNumber = $("#phoneNumber").val().trim().toLowerCase();
+        email = $("#email").val().trim().toLowerCase();      
+        bank_name = $("#bankName").val().trim().toLowerCase();
+        bank_account_number = $("#ban").val().trim().toLowerCase();
+        bvn = $("#bvn").val().trim().toLowerCase();    
+        system_account_number = $("#san").val().trim().toLowerCase();
+        password = $("#password").val().trim();
+        
     let data = {
-      title: req.body.title,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      address: req.body.address,
-      phoneNumber: req.body.phoneNumber,
-      email: req.body.email,
-      bank_name: req.body.bank_name,
-      bank_account_number: req.body.bank_account_number,
-      bvn: req.body.bvn,
-      system_account_number: req.body.system_account_number,
-      accountBalance: req.body.accountBalance,
-      creation_date: req.body.creation_date,
-    };
+                title: title,
+                username: username,
+                firstName: firstName,
+                lastName: lastName,
+                address: address,
+                countryCode: countryCode,
+                phoneNumber: phoneNumber,
+                email: email,
+                bank_name: bank_name,
+                bank_account_number: bank_account_number,
+                bvn: bvn,
+                system_account_number: system_account_number,
+                password: password,
+        };
 
     // Call to store user info
     $.ajax({
@@ -74,7 +89,7 @@ $(function () {
   });
 
   // ******************************************
-  // Signin using phone number
+  // Signin using first name
   //******************************************************* */
   // var hold = [];
   // setValue(hold[0]) // delete this
@@ -83,35 +98,51 @@ $(function () {
     e.preventDefault();
     console.log("clicked");
     let password = $("#pword").val().trim();
-    let phoneNumber = $("#uname").val().trim();
-    let queryUrl2 = "/api/users/user/" + phoneNumber;
-    console.log(phoneNumber);
+    let firstName = $("#uname").val().trim().toLowerCase();
+    // let queryUrl2 = "/api/users/user/" + firstName;
+    let queryUrl2 = "/api/users/login/" + firstName;
+    let data = {
+                  firstName: firstName,
+                  password: password
+                }
+    console.log(data)
+    console.log(firstName);
     console.log(password);
+
     // let unameCheck
     // let check
 
     $.ajax({
       url: queryUrl2,
-      method: "GET",
+      method: "POST",
+      data: data,
+      success: (response) => {
+        console.log(response);
+        console.log("Successfully signed in")
+      },
+      error: () => {
+        console.log("Something went wrong")
+      }
       //data: userInfo
     }).then((response) => {
       console.log(response);
-      console.log(response.phoneNumber);
+      console.log(response.firstName);
       console.log(response.email);
-
-      if (
-        JSON.stringify(response.phoneNumber) === phoneNumber &&
-        response.email === password
-      ) {
-        //  for testing purposes should not be email
-        window.location.href = "../index.html";
-        console.log(`Welcome ${response.firstName}!`);
-      } else {
-        alert(
-          `Invalid Username and/or Password. Please confirm and try again.`
-        );
-        window.location.href = "/";
-      }
+      
+      // response.redirect("../public/index.html")
+      // if (
+      //   JSON.stringify(response.phoneNumber) === phoneNumber &&
+      //   response.email === password
+      // ) {
+      //   //  for testing purposes should not be email
+      //   window.location.href = "../index.html";
+      //   console.log(`Welcome ${response.firstName}!`);
+      // } else {
+      //   alert(
+      //     `Invalid Username and/or Password. Please confirm and try again.`
+      //   );
+      //   window.location.href = "/";
+      // }
     });
   });
 
@@ -124,7 +155,8 @@ $(function () {
     console.log("clicked");
     let email = $("#uname").val().trim();
     let password = $("#pword").val().trim();
-    let queryUrl2 = "/api/users/user/email/" + email;
+    // let queryUrl2 = "/api/users/user/email/" + email;
+    let queryUrl2 = "/api/users/login/";
     console.log(email);
     console.log(password);
     // hold.push(password)
@@ -202,12 +234,13 @@ $(function () {
 //********************************************** */
     
 // if (httpRequest.readyState === XMLHttpRequest.DONE) {
-  window.onload = function windowLoad(event) {
-        event.preventDefault()
+  // window.onload = function windowLoad(event) {
+  //       event.preventDefault()
       $.ajax({
         url: queryUrl2,
-        method: "GET",
+        method: "POST",
         success: function (response) {
+          console.log("Successfully signed in")
           // setValue(JSON.stringify(response.phoneNumber))
       //     if (
       //       email === response.email &&
@@ -258,8 +291,9 @@ $(function () {
       //   );
       //   window.location.href = "/";
       // }
-      // },
-      // error: function () {
+      },
+      error: function () {
+        console.log("Something went wrong!")
       //   alert("Something went wrong!");
       },
       // data: userInfo
@@ -339,7 +373,7 @@ $(function () {
     //   }) 
     // });
 
-      }
+      // }
   });
   
   // $(window).ready(() => {

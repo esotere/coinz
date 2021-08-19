@@ -20,7 +20,7 @@ mongoose.connect("mongodb://localhost/coinzUsers", {useNewUrlParser: true, useUn
 
 // app.use(cors({"origin: 'http://localhost:7776'"}));
 app.use(logger("dev"));
-app.use(express.urlencoded({extended: true}));     // changed bodyParser to express here and below
+app.use(express.urlencoded({extended: false}));     // changed bodyParser to express here and below
 app.use(express.json());
 app.use(express.raw({type:"application/x-www-form-urlencoded"}));
 
