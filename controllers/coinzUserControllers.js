@@ -172,13 +172,13 @@ module.exports = app => {
             }
         });
 
-        app.post("/api/users/login/:username", async (req,res) => {
+        app.post("/api/users/login/username/:userName", async (req,res) => {
             try {
                 let data = {
-                    username: req.params.username,
+                    userName: req.params.userName,
                     password: req.body.password
                 };
-                let user = await User.findOne({"userName": data.username}).exec();
+                let user = await User.findOne({"userName": data.userName}).exec();
                      if (!user) {
                          return res.status(400).send({error: `Could Not Get User Information`});
                      }
@@ -195,7 +195,7 @@ module.exports = app => {
                 }            
             });
 
-            app.post("/api/users/login/:phoneNumber", async (req,res) => {
+            app.post("/api/users/login/phonenumber/:phoneNumber", async (req,res) => {
                 try {
                     let data = {
                         phoneNumber: req.params.phoneNumber,

@@ -47,21 +47,21 @@ Content-Type: application/json
 ###
 
     
-POST http://localhost:7769/api/users/login/octane2
+POST http://localhost:7769/api/users/login/username/primefirst
 Content-Type: application/json
 
 {
-    "username": "octane2",
-    "password": "password"
+    "username": "primefirst",
+    "password": "1111"
 }
 
 ###
-POST http://localhost:7760/api/users/login/8034945217
+POST http://localhost:7769/api/users/login/phonenumber/8034945217
 Content-Type: application/json
 
 {
     "phoneNumber": "8034945217",
-    "password": passpass
+    "password": "passpass"
 }
 
 

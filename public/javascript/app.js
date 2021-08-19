@@ -64,7 +64,7 @@ $(function () {
         
     let data = {
                 title: title,
-                username: username,
+                userName: userName,
                 firstName: firstName,
                 lastName: lastName,
                 address: address,
