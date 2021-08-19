@@ -133,17 +133,18 @@ module.exports = app => {
                     password: hashedPassword,
                     // creation_date: req.body.creation_date
             });
+            console.log(user)
             user.save({user},(err,savedUser) => {
                 if (err) {
                    return res.status(500).send(err);
                 } else {
                     res.status(200).send(`successfully saved, ${savedUser}`);
-                    res.redirect("../public/signIn.html");
+                    // res.redirect("../public/signIn.html");
                 }
             })
         } catch {
              res.status(500).send(`something went wrong`);
-             return res.redirect("../public/signIn.html");
+            //  return res.redirect("../public/signIn.html");
 
         }
     });
@@ -170,6 +171,53 @@ module.exports = app => {
                 
             }
         });
+
+        app.post("/api/users/login/:username", async (req,res) => {
+            try {
+                let data = {
+                    username: req.params.username,
+                    password: req.body.password
+                };
+                let user = await User.findOne({"userName": data.username}).exec();
+                     if (!user) {
+                         return res.status(400).send({error: `Could Not Get User Information`});
+                     }
+                    if (!bcrypt.compareSync(data.password, user.password)) {
+                        return res.status(400).send({message:`Unsuccessful, incorrect username and password combination`});
+                        // res.send("Success!");
+                    } 
+                    res.send({ message: `Welcome ${user.firstName}, Successfully logged in correct password!`});
+                    // res.redirect("../public/index.html")
+                } catch (error){
+                    // res.status(500).redirect(`../public/signUp`);
+                    res.status(500).send(`aweful stuff ${error}`);
+                    
+                }            
+            });
+
+            app.post("/api/users/login/:phoneNumber", async (req,res) => {
+                try {
+                    let data = {
+                        phoneNumber: req.params.phoneNumber,
+                        password: req.body.password
+                    };
+                    let user = await User.findOne({"phoneNumber": data.phoneNumber}).exec();
+                         if (!user) {
+                             return res.status(400).send({error: `Could Not Get User Information`});
+                         }
+                        if (!bcrypt.compareSync(data.password, user.password)) {
+                            return res.status(400).send({message:`Unsuccessful, incorrect phoneNumber and password combination`});
+                            // res.send("Success!");
+                        } 
+                        res.send({ message: `Welcome ${user.firstName}, Successfully logged in correct password!`});
+                        // res.redirect("../public/index.html")
+                    } catch (error){
+                        res.status(500).send(`aweful stuff ${error}`);
+                        
+                    }            
+                });
+
+            
 
     //     app.post("/api/users/login/:email", async (req,res) => {
     //         try {

@@ -8,18 +8,17 @@ Content-Type: application/json
 
 {
     "title": "Mr",
-    "userName": "octane",
+    "userName": "octane2",
     "firstName": "Perry",
-    "lastName": "Nebula",
-    "address": "10 Address st",
+    "lastName": "Nebular",
+    "address": "100 Address st",
     "countryCode": 234,
-    "phoneNumber": 8045549659,
-    "email": "octane@example.com",
+    "phoneNumber": 8035549659,
+    "email": "octane2@example.com",
     "bank_name": "Best Bank Bank Name",
-    "bank_account_number": 887600885566277,
-    "bvn": 738383939939393900,
-    "system_account_number": 40207444452320774,
-    "accountBalance": 70000000000.56,
+    "bank_account_number": 887603035566277,
+    "bvn": 7383836767939393900,
+    "system_account_number": 4066327444452320774,
     "password": "password"
     }
 
@@ -46,20 +45,31 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:7760/api/users/login/magicone@example.com
+
+    
+POST http://localhost:7769/api/users/login/octane2
 Content-Type: application/json
 
 {
-    "email": "magicone@example.com",
-    "password": passpass
+    "username": "octane2",
+    "password": "password"
 }
-
 
 ###
-POST http://localhost:7760/api/users/user/email/magicone@example.com
+POST http://localhost:7760/api/users/login/8034945217
 Content-Type: application/json
 
 {
-    "email": "magicone@example.com",
+    "phoneNumber": "8034945217",
     "password": passpass
 }
+
+
+# ###
+# POST http://localhost:7760/api/users/user/email/magicone@example.com
+# Content-Type: application/json
+
+# {
+#     "email": "magicone@example.com",
+#     "password": passpass
+# }

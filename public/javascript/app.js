@@ -49,7 +49,7 @@ $(function () {
     console.log("clicked");
     let queryUrl = "/api/users";
     let title = $("#title").val().trim().toLowerCase();
-        username = $("#username").val().trim().toLowerCase();      
+        userName = $("#username").val().trim().toLowerCase();      
         firstName = $("#firstName").val().trim().toLowerCase();
         lastName = $("#lastName").val().trim().toLowerCase();
         address = $("#address").val().trim().toLowerCase();
@@ -77,7 +77,7 @@ $(function () {
                 system_account_number: system_account_number,
                 password: password,
         };
-
+            console.log(data);
     // Call to store user info
     $.ajax({
       url: queryUrl,
